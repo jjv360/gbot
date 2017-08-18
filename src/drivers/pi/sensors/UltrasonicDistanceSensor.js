@@ -20,6 +20,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 
         // Setup pins
         usonic.init(err => {
+            this.ready = true
             if (err) console.log(err)
         })
 
@@ -33,6 +34,10 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 	}
 
     check() {
+
+        // Wait until ready
+        if (!this.ready)
+            return
 
         // Turn pin on and off
         this.distance = this.sensor()
