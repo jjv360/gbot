@@ -1,7 +1,7 @@
 //
 // Measures distance from obstruction
 
-const Device = require("../../Device")
+const Device = require("../../../Device")
 // const GPIO = require("../../pi/GPIO")
 const RPiGPIO = require("rpi-gpio")
 const sleep = require("sleep")
