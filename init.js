@@ -4,9 +4,9 @@
 console.log("Loading drivers...")
 
 // Drivers
-const UltrasonicDistanceSensor = require("./drivers/sensors/UltrasonicDistanceSensor")
+const UltrasonicDistanceSensor = require("./src/drivers/pi/sensors/UltrasonicDistanceSensor")
 
 var bot = new Bot();
-bot.registerDevice(new UltrasonicDistanceSensor(0, -1, Math.PI, 180))
+bot.registerDevice(new UltrasonicDistanceSensor(0, -1, Math.PI, 180, { triggerPin: 16, echoPin: 18 }))
 
 console.log("Starting bot...")
