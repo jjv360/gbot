@@ -6,7 +6,7 @@ const Device = require("../../../Device")
 const RPiGPIO = require("rpi-gpio")
 const sleep = require("sleep")
 
-module.exports = class UltrasonicDistanceSensor extends Bot.Device{
+module.exports = class UltrasonicDistanceSensor extends Device{
 
     constructor(x, y, angle, maxDistance, config) {
 		super(x, y, angle);
