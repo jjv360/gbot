@@ -4,7 +4,7 @@
 const Device = require("../../../Device")
 // const GPIO = require("../../pi/GPIO")
 // const RPiGPIO = require("rpi-gpio")
-const usonic = require('r-pi-usonic');
+const usonic = require('mmm-usonic');
 
 module.exports = class UltrasonicDistanceSensor extends Device{
 
