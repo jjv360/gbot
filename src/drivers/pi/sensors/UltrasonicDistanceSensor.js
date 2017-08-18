@@ -12,7 +12,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 		super(x, y, angle);
 
         // Setup args
-		this.type = Bot.Device.Type.ObstructionSensor;
+		this.type = Device.Type.ObstructionSensor;
 		this.maxDistance = maxDistance;
 		this.obstructionAt = -1;
         this.triggerPin = config.triggerPin
