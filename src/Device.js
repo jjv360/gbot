@@ -10,7 +10,7 @@ class Device {
 		this.y = y;
 		this.angle = angle;
 		this.bot = null;
-		this.type = Bot.Device.Type.Unknown;
+		this.type = Device.Type.Unknown;
 
 	}
 
