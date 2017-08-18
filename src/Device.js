@@ -23,6 +23,10 @@ class Device {
 		return Math.abs(this.angle) < Math.PI/2;
 	}
 
+	log(txt) {
+		console.log(this.type + ": " + txt)
+	}
+
 }
 
 // DeviceType enum
