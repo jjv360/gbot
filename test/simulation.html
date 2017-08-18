@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simulation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body style='background-color: #000; '>
+
+	<!-- Simulation area -->
+	<div style='display: block; position: absolute; top: 40px; left: 0px; width: 49%; font-family: Helvetica, Arial; font-size: 21px; color: #FFF; text-align: center; '>Simulation</div>
+	<canvas id='simulation-canvas' style='position: absolute; top: 100px; left: 40px; width: calc(49% - 80px); height: calc(100% - 140px); border: 1px solid rgba(255, 255, 255, 0.1); '></canvas>
+
+	<!-- Divider -->
+	<div style='display: block; position: absolute; top: 0px; left: 50%; width: 1px; height: 100%; background-color: rgba(255, 255, 255, 0.1); '></div>
+
+	<!-- Memory area -->
+	<div style='display: block; position: absolute; top: 40px; left: 51%; width: 49%; font-family: Helvetica, Arial; font-size: 21px; color: #FFF; text-align: center; '>Memory</div>
+	<canvas id='memory-canvas' style='position: absolute; top: 100px; left: calc(51% + 40px); width: calc(49% - 80px); height: calc(100% - 140px); border: 1px solid rgba(255, 255, 255, 0.1); '></canvas>
+
+	<!-- Code -->
+	<script src='../dist/bot.min.js'></script>
+	<script src='intersection.js'></script>
+	<script src='simulation-canvas.js'></script>
+
+</body>
+</html>
