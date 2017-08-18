@@ -3,8 +3,8 @@
 
 const Device = require("../../../Device")
 // const GPIO = require("../../pi/GPIO")
-const RPiGPIO = require("rpi-gpio")
-const sleep = require("sleep")
+// const RPiGPIO = require("rpi-gpio")
+const usonic = require('r-pi-usonic');
 
 module.exports = class UltrasonicDistanceSensor extends Device{
 
@@ -19,46 +19,24 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.echoPin = config.echoPin
 
         // Setup pins
-        RPiGPIO.setup(this.triggerPin, RPiGPIO.DIR_OUT)
-        RPiGPIO.setup(this.echoPin, RPiGPIO.DIR_IN, RPiGPIO.EDGE_BOTH)
-        RPiGPIO.on("change", this.onChange.bind(this))
+        usonic.init(err => {
+            if (err) console.log(err)
+        })
+
+        this.sensor = usonic.createSensor(this.echoPin, this.triggerPin);
 
         this.log("Loaded, trigger pin = " + this.triggerPin + ", echoPin = " + this.echoPin)
 
         // Constant ping
-        setInterval(this.check.bind(this), 1000)
+        setInterval(this.check.bind(this), 500)
 
 	}
 
     check() {
 
         // Turn pin on and off
-        this.triggerStart = Date.now()
-        RPiGPIO.write(this.triggerPin, true)
-        sleep.usleep(10)
-        RPiGPIO.write(this.triggerPin, false)
-
-    }
-
-    onChange(channel, value) {
-
-        // Make sure channel is ours
-        if (channel != this.echoPin)
-            return
-
-        // Check value
-        if (value) {
-
-            // Going high, start timer
-            this.triggerStart = Date.now()
-
-        } else {
-
-            // Going low, calculate distance
-            var delay = Date.now() - this.triggerStart
-            console.log("Delay: " + delay)
-
-        }
+        this.distance = this.sensor()
+        console.log("Distance: " + this.distance)
 
     }
 
