@@ -11,14 +11,14 @@ wire.scan(function(err, data) {
   console.log(data)
 });
 
-// Drivers
-const UltrasonicDistanceSensor = require("./src/drivers/pi/sensors/UltrasonicDistanceSensor")
-const Wheel = require("./src/drivers/pi/actuators/Wheel")
-
-// Setup bot
-const Bot = require("./src/index")
-var bot = new Bot();
-// bot.registerDevice(new UltrasonicDistanceSensor(0, -1, Math.PI, 180, { triggerPin: 16, echoPin: 18 }))
-bot.registerDevice(new Wheel())
-
-console.log("Starting bot...")
+// // Drivers
+// const UltrasonicDistanceSensor = require("./src/drivers/pi/sensors/UltrasonicDistanceSensor")
+// const Wheel = require("./src/drivers/pi/actuators/Wheel")
+//
+// // Setup bot
+// const Bot = require("./src/index")
+// var bot = new Bot();
+// // bot.registerDevice(new UltrasonicDistanceSensor(0, -1, Math.PI, 180, { triggerPin: 16, echoPin: 18 }))
+// bot.registerDevice(new Wheel())
+//
+// console.log("Starting bot...")
