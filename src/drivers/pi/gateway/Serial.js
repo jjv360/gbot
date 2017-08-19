@@ -15,6 +15,7 @@ module.exports = class Serial {
 
         // Open file
         this.file = filePath
+        this.fileOut = fs.createWriteStream(filePath)
         var lineReader = require('readline').createInterface({
             input: fs.createReadStream(filePath)
         });
@@ -52,7 +53,7 @@ module.exports = class Serial {
     /** Write a line of text to the port */
     writeln(txt) {
 
-        fs.appendFile(this.file, txt + "\n", err => {
+        fs.write(this.fileOut, txt + "\n", err => {
             if (err) console.log(err);
         })
 
