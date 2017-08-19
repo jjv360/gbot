@@ -2,6 +2,7 @@
 #include "UltrasonicSensor.h"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <Adafruit_PWMServoDriver.h>
 
 // Sensors
 UltrasonicSensor sensor1(1, 3, 2);
@@ -13,6 +14,9 @@ UltrasonicSensor sensor5(5, 7, 2);
 // LCD
 LiquidCrystal_I2C lcd(0x38, 16, 2);
 
+// PWM (motors/servos)
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
 void setup() {
 
   // Setup USB
@@ -22,6 +26,10 @@ void setup() {
   lcd.init();
   lcd.backlight();
   writeLCD("Starting...");
+
+  // Setup PWM
+  pwm.begin();
+  pwm.setPWMFreq(1600);
 
 }
 
@@ -51,6 +59,54 @@ void loop() {
 
         // Write to screen
         writeLCD(inputBuffer + 4);
+
+    } else if (startsWith("WHEEL1 ", inputBuffer)) {
+
+        // Apply PWM speed
+        float speed = atof(inputBuffer + 7);
+        if (speed > 0) {
+
+            // Go forward
+            pwm.setPin(0, (unsigned int) (max(0, min(1, speed)) * 4095));
+            pwm.setPin(1, 0);
+
+        } else if (speed < 0) {
+
+            // Go backward
+            pwm.setPin(0, 0);
+            pwm.setPin(1, (unsigned int) (max(0, min(1, -speed)) * 4095));
+
+        } else if (speed == 0) {
+
+            // Stop
+            pwm.setPin(0, 0);
+            pwm.setPin(1, 0);
+
+        }
+
+    } else if (startsWith("WHEEL2 ", inputBuffer)) {
+
+        // Apply PWM speed
+        float speed = atof(inputBuffer + 7);
+        if (speed > 0) {
+
+            // Go forward
+            pwm.setPin(2, (unsigned int) (max(0, min(1, speed)) * 4095));
+            pwm.setPin(3, 0);
+
+        } else if (speed < 0) {
+
+            // Go backward
+            pwm.setPin(2, 0);
+            pwm.setPin(3, (unsigned int) (max(0, min(1, -speed)) * 4095));
+
+        } else if (speed == 0) {
+
+            // Stop
+            pwm.setPin(2, 0);
+            pwm.setPin(3, 0);
+
+        }
 
     }
 
