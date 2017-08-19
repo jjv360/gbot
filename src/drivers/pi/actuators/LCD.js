@@ -23,7 +23,8 @@ module.exports = class LCD extends Device {
 
         // Update buffer
         this.buffer = txt
-        this.update()
+        if (this.buffer != this.oldBuffer) this.update()
+        this.oldBuffer = this.buffer
 
     }
 
