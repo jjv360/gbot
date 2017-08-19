@@ -12,7 +12,7 @@ module.exports = class Serial {
 
         // Open file
         var lineReader = require('readline').createInterface({
-            input: require('fs').createReadStream('file.in')
+            input: require('fs').createReadStream(filePath)
         });
 
         // Add line listener
