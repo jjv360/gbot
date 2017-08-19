@@ -1,7 +1,10 @@
 //
 // Read and write data to/from the serial ports
 
+const fs = require('fs')
+
 var openedPorts = {}
+
 
 module.exports = class Serial {
 
@@ -11,8 +14,9 @@ module.exports = class Serial {
         this.listeners = []
 
         // Open file
+        this.file = filePath
         var lineReader = require('readline').createInterface({
-            input: require('fs').createReadStream(filePath)
+            input: fs.createReadStream(filePath)
         });
 
         // Add line listener
@@ -43,6 +47,15 @@ module.exports = class Serial {
     /** Add an input listener */
     addListener(cb) {
         this.listeners.push(cb)
+    }
+
+    /** Write a line of text to the port */
+    writeln(txt) {
+
+        fs.appendFile(this.file, txt + "\n", err => {
+            console.log(err);
+        })
+
     }
 
 }
