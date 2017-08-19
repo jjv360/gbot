@@ -4,7 +4,8 @@
 const Device = require("../../../Device")
 // const GPIO = require("../../pi/GPIO")
 // const RPiGPIO = require("rpi-gpio")
-const usonic = require('mmm-usonic');
+// const usonic = require('mmm-usonic');
+const Serial = require("../gateway/Serial")
 
 module.exports = class UltrasonicDistanceSensor extends Device{
 
@@ -17,13 +18,10 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 		this.obstructionAt = -1;
         this.triggerPin = config.triggerPin
         this.echoPin = config.echoPin
+        this.sendorID = config.id
 
-        // Setup pins
-        usonic.init(err => {
-            if (err) console.log(err)
-            this.sensor = usonic.createSensor(this.echoPin, this.triggerPin);
-        })
-
+        // Setup listener
+        Serial.get(config.serial, this.onIncomingLine.bind(this))
 
         this.log("Loaded, trigger pin = " + this.triggerPin + ", echoPin = " + this.echoPin)
 
@@ -31,6 +29,10 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         setInterval(this.check.bind(this), 500)
 
 	}
+
+    onIncomingLine(txt) {
+        console.log("Got line for " + this.sensorID + ": " + txt)
+    }
 
     check() {
 
