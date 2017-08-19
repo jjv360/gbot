@@ -38,6 +38,12 @@ bot.registerDevice(new UltrasonicDistanceSensor(1, 0, Math.PI/2, { maxDistance: 
 // LCD screen
 bot.registerDevice(new LCD({ serial: "/dev/ttyUSB0" }))
 
+// Left wheel
+bot.registerDevice(new UltrasonicDistanceSensor(-1, 0, 0, { serial: "/dev/ttyUSB0", id: 1 }))
+
+// Right wheel
+bot.registerDevice(new UltrasonicDistanceSensor(1, 0, 0, { serial: "/dev/ttyUSB0", id: 2 }))
+
 // bot.registerDevice(new Wheel())
 
 console.log("Starting bot...")
