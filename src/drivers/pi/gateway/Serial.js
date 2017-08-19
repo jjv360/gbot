@@ -53,7 +53,7 @@ module.exports = class Serial {
     writeln(txt) {
 
         fs.appendFile(this.file, txt + "\n", err => {
-            console.log(err);
+            if (err) console.log(err);
         })
 
     }
