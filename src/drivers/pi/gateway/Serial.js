@@ -53,9 +53,7 @@ module.exports = class Serial {
     /** Write a line of text to the port */
     writeln(txt) {
 
-        fs.writeFile(this.fileOut, txt + "\n", err => {
-            if (err) console.log(err);
-        })
+        this.fileOut.write(txt + "\n")
 
     }
 
