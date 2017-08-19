@@ -21,9 +21,9 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.sendorID = config.id
 
         // Setup listener
-        Serial.get(config.serial, this.onIncomingLine.bind(this))
+        Serial.get(config.serial).addListener(this.onIncomingLine.bind(this))
 
-        this.log("Loaded, trigger pin = " + this.triggerPin + ", echoPin = " + this.echoPin)
+        this.log("Loaded")
 
         // Constant ping
         setInterval(this.check.bind(this), 500)
@@ -36,13 +36,8 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 
     check() {
 
-        // Wait until ready
-        if (!this.sensor)
-            return
-
-        // Turn pin on and off
-        this.distance = this.sensor()
-        console.log("Distance: " + this.distance)
+        // Log distance
+        // console.log("Distance: " + this.distance)
 
     }
 
