@@ -104,6 +104,7 @@ class Bot {
 				continue;
 
 			// Check if there's a close obstruction
+			console.log(device.obstructionAt)
 			if (device.obstructionAt == -1 || device.obstructionAt > 0.5)
 				continue;
 
