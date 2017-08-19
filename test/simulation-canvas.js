@@ -36,7 +36,7 @@ class SimulationEnvironment {
 		this.bot.registerDevice(new Wheel(0.8, -0.8, 0));
 
 		// Add sensors
-		this.bot.registerDevice(new ObstructionSensor(0, -1, Math.PI, 180));
+		// this.bot.registerDevice(new ObstructionSensor(0, -1, Math.PI, 180));
 		// this.bot.registerDevice(new ObstructionSensor(0, 1, 0, 180));
 		// this.bot.registerDevice(new ObstructionSensor(1, 1, -Math.PI/4, 180));
 		// this.bot.registerDevice(new ObstructionSensor(-1, 1, Math.PI/4, 180));

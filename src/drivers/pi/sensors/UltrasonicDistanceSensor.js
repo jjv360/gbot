@@ -9,16 +9,18 @@ const Serial = require("../gateway/Serial")
 
 module.exports = class UltrasonicDistanceSensor extends Device{
 
-    constructor(x, y, angle, maxDistance, config) {
+    constructor(x, y, angle, config) {
 		super(x, y, angle);
 
         // Setup args
 		this.type = Device.Type.ObstructionSensor;
-		this.maxDistance = maxDistance;
-		this.obstructionAt = -1;
+		this.maxDistance = config.maxDistance;
         this.triggerPin = config.triggerPin
         this.echoPin = config.echoPin
         this.sensorID = config.id
+
+        /** Obstruction distance in meters */
+		this.obstructionAt = -1;
 
         // Setup listener
         Serial.get(config.serial).addListener(this.onIncomingLine.bind(this))
@@ -26,7 +28,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.log("Loaded")
 
         // Constant ping
-        setInterval(this.check.bind(this), 200)
+        // setInterval(this.check.bind(this), 200)
 
 	}
 
@@ -46,15 +48,15 @@ module.exports = class UltrasonicDistanceSensor extends Device{
             return
 
         // Store distance in meters
-        this.distance = parseFloat(comps[3]) / 100
+        this.obstructionAt = Math.max(0, Math.min(this.maxDistance, parseFloat(comps[3]) / 100))
 
     }
 
-    check() {
-
-        // Log distance
-        console.log("Distance in meters: " + this.distance)
-
-    }
+    // check() {
+    //
+    //     // Log distance
+    //     console.log("Distance in meters: " + this.distance)
+    //
+    // }
 
 }

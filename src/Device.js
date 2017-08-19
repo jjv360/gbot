@@ -31,9 +31,10 @@ class Device {
 
 // DeviceType enum
 Device.Type = {
-	Wheel: "wheel",
-	ObstructionSensor: "obstruction-sensor",
-	Unknown: "unknown"
+	Wheel: "Wheel",
+	ObstructionSensor: "ObstructionSensor",
+	Log: "Log",
+	Unknown: "Unknown"
 }
 
 module.exports = Device;

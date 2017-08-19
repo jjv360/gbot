@@ -9,11 +9,20 @@ class Bot {
 
 		// Properties
 		this.devices = [];
-		this.status = Bot.Status.Idle;
+		this._status = Bot.Status.Idle;
 
 		// Start event loop
 		this.timer = setInterval(this.loop.bind(this), 100);
 
+	}
+
+	get status() {
+		return this._status
+	}
+
+	set status(s) {
+		this._status = s
+		this.log(s)
 	}
 
 	/** Adds a hardware driver */
@@ -95,7 +104,7 @@ class Bot {
 				continue;
 
 			// Check if there's a close obstruction
-			if (device.obstructionAt == -1 || device.obstructionAt > 20)
+			if (device.obstructionAt == -1 || device.obstructionAt > 0.1)
 				continue;
 
 			// We are obstructed! Start turning for a while
@@ -109,6 +118,18 @@ class Bot {
 
 		// No obstruction
 		return false;
+
+	}
+
+	log(txt) {
+
+		// Log to console
+		console.log("GBot: " + txt);
+
+		// Log to log devices
+		for (var device of this.devices)
+			if (device.type == Device.Type.Log)
+				device.log(txt);
 
 	}
 
