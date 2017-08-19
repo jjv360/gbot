@@ -14,6 +14,7 @@ console.log("Loading drivers...")
 // Drivers
 const UltrasonicDistanceSensor = require("./src/drivers/pi/sensors/UltrasonicDistanceSensor")
 const Wheel = require("./src/drivers/pi/actuators/Wheel")
+const LCD = require("./src/drivers/pi/actuators/LCD")
 
 // Setup bot
 const Bot = require("./src/index")
