@@ -37,9 +37,9 @@ class SimulationEnvironment {
 
 		// Add sensors
 		this.bot.registerDevice(new ObstructionSensor(0, -1, Math.PI, 180));
-		this.bot.registerDevice(new ObstructionSensor(0, 1, 0, 180));
-		this.bot.registerDevice(new ObstructionSensor(1, 1, -Math.PI/4, 180));
-		this.bot.registerDevice(new ObstructionSensor(-1, 1, Math.PI/4, 180));
+		// this.bot.registerDevice(new ObstructionSensor(0, 1, 0, 180));
+		// this.bot.registerDevice(new ObstructionSensor(1, 1, -Math.PI/4, 180));
+		// this.bot.registerDevice(new ObstructionSensor(-1, 1, Math.PI/4, 180));
 
 		// Add handlers
 		window.addEventListener("resize", this.onResize.bind(this));

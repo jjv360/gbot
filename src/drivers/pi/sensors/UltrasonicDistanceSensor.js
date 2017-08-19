@@ -26,7 +26,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.log("Loaded")
 
         // Constant ping
-        setInterval(this.check.bind(this), 2000)
+        setInterval(this.check.bind(this), 200)
 
 	}
 
