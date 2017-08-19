@@ -24,10 +24,10 @@ var bot = new Bot();
 bot.registerDevice(new UltrasonicDistanceSensor(0, -1, Math.PI, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 1 }))
 
 // Front left sensor
-bot.registerDevice(new UltrasonicDistanceSensor(-1, 1, Math.PI, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 2 }))
+bot.registerDevice(new UltrasonicDistanceSensor(-1, 1, 0, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 2 }))
 
 // Front right sensor
-bot.registerDevice(new UltrasonicDistanceSensor(1, 1, Math.PI, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 3 }))
+bot.registerDevice(new UltrasonicDistanceSensor(1, 1, 0, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 3 }))
 
 // Left side sensor
 bot.registerDevice(new UltrasonicDistanceSensor(-1, 0, -Math.PI/2, { maxDistance: 1, serial: "/dev/ttyUSB0", id: 4 }))

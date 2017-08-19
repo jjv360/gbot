@@ -7,7 +7,7 @@ const Device = require("../../../Device")
 // const usonic = require('mmm-usonic');
 const Serial = require("../gateway/Serial")
 
-module.exports = class UltrasonicDistanceSensor extends Device{
+module.exports = class UltrasonicDistanceSensor extends Device {
 
     constructor(x, y, angle, config) {
 		super(x, y, angle);
