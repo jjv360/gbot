@@ -104,7 +104,7 @@ class Bot {
 				continue;
 
 			// Check if there's a close obstruction
-			if (device.obstructionAt == -1 || device.obstructionAt > 0.1)
+			if (device.obstructionAt == -1 || device.obstructionAt > 0.5)
 				continue;
 
 			// We are obstructed! Start turning for a while
