@@ -3,7 +3,7 @@
 
 var Device = require("./Device");
 
-const WHEEL_POWER = 0.5
+const WHEEL_POWER = 1
 
 class Bot {
 
