@@ -3,6 +3,8 @@
 
 var Device = require("./Device");
 
+const WHEEL_POWER = 0.5
+
 class Bot {
 
 	constructor() {
@@ -87,7 +89,7 @@ class Bot {
 		// To move forward, power all wheels
 		for (var device of this.devices) {
 			if (device.type == Device.Type.Wheel) {
-				device.setSpeed(0.2);
+				device.setSpeed(WHEEL_POWER);
 			}
 		}
 
@@ -102,7 +104,7 @@ class Bot {
 		// To move forward, power all wheels
 		for (var device of this.devices) {
 			if (device.type == Device.Type.Wheel) {
-				device.setSpeed(device.x > 0 ? 0.2 : -0.2);
+				device.setSpeed(device.x > 0 ? WHEEL_POWER : -WHEEL_POWER);
 			}
 		}
 
