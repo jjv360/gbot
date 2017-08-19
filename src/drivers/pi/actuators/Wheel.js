@@ -23,7 +23,7 @@ module.exports = class Wheel extends Device {
     setSpeed(val) {
 
         // Update buffer
-        this.buffer = "" + Math.min(1, Math.max(-1, val || 0))
+        this.buffer = "WHEEL" + this.wheelID + " " + Math.min(1, Math.max(-1, val || 0))
         this.update()
 
     }
@@ -36,7 +36,7 @@ module.exports = class Wheel extends Device {
             return
 
         // Write to serial
-        Serial.get(this.serial).writeln("WHEEL" + this.wheelID + " " + this.buffer);
+        Serial.get(this.serial).writeln(this.buffer);
 
     }
 
