@@ -49,6 +49,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 
         // Store distance in meters
         this.obstructionAt = Math.max(0, Math.min(this.maxDistance, parseFloat(comps[3]) / 100))
+        console.log(this.obstructionAt)
 
     }
 
