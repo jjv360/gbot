@@ -20,7 +20,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.sensorID = config.id
 
         /** Obstruction distance in meters */
-		this.obstructionAt = -1;
+		this.obstructionAt = 0;
 
         // Setup listener
         Serial.get(config.serial).addListener(this.onIncomingLine.bind(this))
@@ -49,7 +49,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 
         // Store distance in meters
         this.obstructionAt = Math.max(0, Math.min(this.maxDistance, parseFloat(comps[3]) / 100))
-        console.log(this.obstructionAt)
+        // console.log(this.obstructionAt)
 
     }
 
