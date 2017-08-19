@@ -4,6 +4,7 @@
 var Device = require("./Device");
 
 const WHEEL_POWER = 1
+const WALL_DISTANCE = 0.2
 
 class Bot {
 
@@ -132,6 +133,7 @@ class Bot {
 		for (var device of this.devices) {
 
 			// Check type
+			console.log("Checking device " + device.type)
 			if (device.type != Device.Type.ObstructionSensor)
 				continue;
 
@@ -141,7 +143,7 @@ class Bot {
 
 			// Check if there's a close obstruction
 			console.log(device.obstructionAt)
-			if (device.obstructionAt == -1 || device.obstructionAt > 0.5)
+			if (device.obstructionAt == -1 || device.obstructionAt > WALL_DISTANCE)
 				continue;
 
 			// We are obstructed! Start turning for a while
