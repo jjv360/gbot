@@ -4,7 +4,7 @@
 var Device = require("./Device");
 
 const WHEEL_POWER = 0.9
-const WALL_DISTANCE = 0.1
+const WALL_DISTANCE = 0.5
 
 class Bot {
 
