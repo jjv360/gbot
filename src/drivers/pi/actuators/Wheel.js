@@ -16,7 +16,7 @@ module.exports = class Wheel extends Device {
         this.buffer = ""
 
         // Write to wheel all the time
-        setInterval(this.update.bind(this), 500)
+        setInterval(this.update.bind(this), 1000)
 
     }
 
