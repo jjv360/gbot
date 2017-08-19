@@ -43,6 +43,28 @@ class Bot {
 		// Check current activity
 		if (this.status == Bot.Status.Idle) {
 
+			// Check for distance sensors
+			// Go through all sensors
+			for (var device of this.devices) {
+
+				// Check type
+				if (device.type != Device.Type.ObstructionSensor)
+					continue;
+
+				// Check if forward facing
+				if (!device.isForwardFacing)
+					continue;
+
+				// Check if there's a close obstruction
+				if (device.obstructionAt == -1 || device.obstructionAt > 0.5)
+					continue;
+
+				// Stop!
+				console.log("Obstruction!")
+				return
+
+			}
+
 			// Move forward!
 			this.forward();
 
@@ -65,7 +87,7 @@ class Bot {
 		// To move forward, power all wheels
 		for (var device of this.devices) {
 			if (device.type == Device.Type.Wheel) {
-				device.setSpeed(1);
+				device.setSpeed(0.2);
 			}
 		}
 
@@ -80,12 +102,24 @@ class Bot {
 		// To move forward, power all wheels
 		for (var device of this.devices) {
 			if (device.type == Device.Type.Wheel) {
-				device.setSpeed(device.x > 0 ? 1 : -1);
+				device.setSpeed(device.x > 0 ? 0.2 : -0.2);
 			}
 		}
 
 		// Set status
 		this.status = Bot.Status.Turning;
+
+	}
+
+	stop() {
+
+		// To move forward, power all wheels
+		for (var device of this.devices)
+			if (device.type == Device.Type.Wheel)
+				device.setSpeed(0)
+
+		// Set status
+		this.status = Bot.Status.Idle;
 
 	}
 
