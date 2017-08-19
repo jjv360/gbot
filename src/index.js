@@ -3,7 +3,7 @@
 
 var Device = require("./Device");
 
-const WHEEL_POWER = 1
+const WHEEL_POWER = 0.9
 const WALL_DISTANCE = 0.1
 
 class Bot {
@@ -133,7 +133,6 @@ class Bot {
 		for (var device of this.devices) {
 
 			// Check type
-			console.log("Checking device " + device.type)
 			if (device.type != Device.Type.ObstructionSensor)
 				continue;
 

@@ -67,14 +67,14 @@ void loop() {
         if (speed > 0) {
 
             // Go forward
-            pwm.setPin(0, (unsigned int) (max(0, min(1, speed)) * 4095));
+            pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
             pwm.setPin(1, 0);
 
         } else if (speed < 0) {
 
             // Go backward
             pwm.setPin(0, 0);
-            pwm.setPin(1, (unsigned int) (max(0, min(1, -speed)) * 4095));
+            pwm.setPin(1, (unsigned int) (max(-1, min(1, -speed)) * 4095));
 
         } else if (speed == 0) {
 
