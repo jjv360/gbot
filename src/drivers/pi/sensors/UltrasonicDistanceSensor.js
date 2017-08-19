@@ -18,7 +18,7 @@ module.exports = class UltrasonicDistanceSensor extends Device{
 		this.obstructionAt = -1;
         this.triggerPin = config.triggerPin
         this.echoPin = config.echoPin
-        this.sendorID = config.id
+        this.sensorID = config.id
 
         // Setup listener
         Serial.get(config.serial).addListener(this.onIncomingLine.bind(this))
@@ -26,18 +26,34 @@ module.exports = class UltrasonicDistanceSensor extends Device{
         this.log("Loaded")
 
         // Constant ping
-        setInterval(this.check.bind(this), 500)
+        setInterval(this.check.bind(this), 2000)
 
 	}
 
     onIncomingLine(txt) {
-        console.log("Got line for " + this.sensorID + ": " + txt)
+
+        // Get components
+        let comps = txt.split(" ")
+        if (comps.length < 4)
+            return
+
+        // Check module
+        if (comps[0] != "[UltrasonicSensor]")
+            return
+
+        // Check ID
+        if (comps[1] != this.sensorID)
+            return
+
+        // Store distance in meters
+        this.distance = parseFloat(comps[3]) / 100
+
     }
 
     check() {
 
         // Log distance
-        // console.log("Distance: " + this.distance)
+        console.log("Distance in meters: " + this.distance)
 
     }
 
