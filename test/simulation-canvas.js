@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var FloorColors = [ "#500", "#050", "#005", "#055", "#550", "#555" ]
+var DistanceMultiplier = 0.01
 
 class SimulationEnvironment {
 
@@ -36,10 +37,14 @@ class SimulationEnvironment {
 		this.bot.registerDevice(new Wheel(0.8, -0.8, 0));
 
 		// Add sensors
-		// this.bot.registerDevice(new ObstructionSensor(0, -1, Math.PI, 180));
-		// this.bot.registerDevice(new ObstructionSensor(0, 1, 0, 180));
-		// this.bot.registerDevice(new ObstructionSensor(1, 1, -Math.PI/4, 180));
-		// this.bot.registerDevice(new ObstructionSensor(-1, 1, Math.PI/4, 180));
+		this.bot.registerDevice(new ObstructionSensor(0, -1, Math.PI, 180));
+		this.bot.registerDevice(new ObstructionSensor(1, 1, 0, 180));
+		this.bot.registerDevice(new ObstructionSensor(-1, 0, Math.PI/2, 180));
+		this.bot.registerDevice(new ObstructionSensor(1, 0, -Math.PI/2, 180));
+		this.bot.registerDevice(new ObstructionSensor(-1, 1, 0, 180));
+
+		// Set controller
+		this.bot.controller = new Bot.SmartControl()
 
 		// Add handlers
 		window.addEventListener("resize", this.onResize.bind(this));
@@ -280,7 +285,7 @@ class ObstructionSensor extends SimulatedDevice {
 				ctx.fillRect(p[0] - 2, p[1] - 2, 4, 4);
 
 				// Store closest distance
-				var dist = Bot.Vector2.distance([segment[0], segment[1]], [p[0], p[1]]);
+				var dist = Bot.Vector2.distance([segment[0], segment[1]], [p[0], p[1]]) * DistanceMultiplier;
 				if (this.obstructionAt == -1 || this.obstructionAt > dist)
 					this.obstructionAt = dist;
 
