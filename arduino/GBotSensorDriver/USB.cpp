@@ -41,11 +41,11 @@ void USB::log(const char* module, const char* format, ...) {
   vsprintf(buffer, format, args);
   va_end(args);
 
+  char buffer2[256];
+  sprintf(buffer2, "[%s] %s", module, buffer);
+
   // Write to output
-  Serial.print("[");
-  Serial.print(module);
-  Serial.print("] ");
-  Serial.println(buffer);
+  Serial.println(buffer2);
 
 }
 

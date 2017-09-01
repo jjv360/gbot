@@ -7,6 +7,7 @@ UltrasonicSensor::UltrasonicSensor(int id, int triggerPin, int echoPin) {
     _id = id;
     _triggerPin = triggerPin;
     _echoPin = echoPin;
+	_lastPing = 0;
 
     // Setup pins
     pinMode(triggerPin, OUTPUT);
@@ -34,13 +35,13 @@ unsigned int UltrasonicSensor::measureDistance() {
 void UltrasonicSensor::loop() {
 
     // Check if enough time has passed
-    if (_lastPing + 250 > millis()) return;
+    if (_lastPing + 500 > millis()) return;
     _lastPing = millis();
 
     // Calculate distance
     int distance = measureDistance();
 
     // Log it
-    USB::log("UltrasonicSensor", "%i DISTANCE %i", _id, distance);
+    USB::log("DST", "%i %i", _id, distance);
 
 }

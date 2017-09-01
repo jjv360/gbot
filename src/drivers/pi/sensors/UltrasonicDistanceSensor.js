@@ -36,11 +36,11 @@ module.exports = class UltrasonicDistanceSensor extends Device {
 
         // Get components
         let comps = txt.split(" ")
-        if (comps.length < 4)
+        if (comps.length < 3)
             return
 
         // Check module
-        if (comps[0] != "[UltrasonicSensor]")
+        if (comps[0] != "[DST]")
             return
 
         // Check ID
@@ -48,7 +48,7 @@ module.exports = class UltrasonicDistanceSensor extends Device {
             return
 
         // Store distance in meters
-        this.obstructionAt = Math.max(0, Math.min(this.maxDistance, parseFloat(comps[3]) / 100))
+        this.obstructionAt = Math.max(0, Math.min(this.maxDistance, parseFloat(comps[2]) / 100))
         // console.log(this.obstructionAt)
 
     }

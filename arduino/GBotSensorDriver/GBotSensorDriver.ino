@@ -21,6 +21,7 @@ void setup() {
 
   // Setup USB
   USB::setup();
+  USB::log("Main", "Driver board running");
 
   // Setup LCD
   lcd.init();
