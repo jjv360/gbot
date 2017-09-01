@@ -1,6 +1,8 @@
 //
 // Bot class - Represents the bot and all it's sensors, etc.
 
+const Device = require("./Device")
+
 class Bot {
 
 	constructor() {
@@ -56,7 +58,7 @@ class Bot {
 
 // Expose classes
 module.exports = Bot;
-module.exports.Device = require("./Device");
+module.exports.Device = Device;
 module.exports.Vector2 = require("./Vector2");
 module.exports.Affine = require("affine").affine;
 module.exports.RemoteControl = require("./controllers/RemoteControl")
