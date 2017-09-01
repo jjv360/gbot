@@ -16,6 +16,9 @@ const UltrasonicDistanceSensor = require("./src/drivers/pi/sensors/UltrasonicDis
 const Wheel = require("./src/drivers/pi/actuators/Wheel")
 const LCD = require("./src/drivers/pi/actuators/LCD")
 
+// Controllers
+const RemoteControl = require("./src/controllers/RemoteControl")
+
 // Setup bot
 const Bot = require("./src/index")
 var bot = new Bot();
@@ -47,3 +50,63 @@ bot.registerDevice(new Wheel(1, 0, 0, { serial: "/dev/ttyUSB0", id: 2 }))
 // bot.registerDevice(new Wheel())
 
 console.log("Starting bot...")
+
+// Add initial controller
+bot.controller = new RemoteControl()
+
+
+
+
+// Setup web site
+const ip = require('ip')
+const express = require("express")
+const app = express()
+
+// Serve files from web folder
+app.use(express.static("web"))
+
+// Add support for WebSocket connections
+require('express-ws')(app);
+
+// On websocket connection...
+app.ws('/', (ws, res) => {
+
+	// Say hello
+	ws.send("Hi")
+
+	// Listen for incoming messages
+	ws.on("message", msg => {
+
+		// Check what to do
+		console.log("WS: " + msg)
+		if (msg == "smart") {
+
+			// Switch to smart mode
+			console.log("Switching to Smart mode")
+			ws.send("Switching to Smart mode")
+			bot.controller = null
+
+		} else if (msg == "remote") {
+
+			// Switch to smart mode
+			console.log("Switching to Remote Control mode")
+			ws.send("Switching to Remote Control mode")
+			bot.controller = new RemoteControl()
+
+		} else {
+
+			// Pass to remote control controller
+			if (bot.controller && bot.controller.do)
+				bot.controller.do(msg)
+
+		}
+
+	})
+
+})
+
+// Start listening
+app.listen(process.env.PORT || 8081)
+var addr = ip.address() + ":" + (process.env.PORT || 8081)
+console.log("Web server listening on " + addr)
+bot.log(addr)

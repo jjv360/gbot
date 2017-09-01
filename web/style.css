@@ -1,0 +1,79 @@
+
+html, body {
+	background-color: black;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+.button {
+	position: absolute;
+	display: block;
+	background-color: #08F;
+	border-radius: 2px;
+	font-family: Helvetica, Arial;
+	font-size: 13px;
+	color: #FFF;
+	padding: 10px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.button#forward {
+	top: 20px;
+	left: 20px;
+	width: 280px;
+}
+
+.button#left {
+	top: 60px;
+	left: 20px;
+	width: 100px;
+}
+
+.button#right {
+	top: 60px;
+	left: 200px;
+	width: 100px;
+}
+
+.button#backward {
+	top: 100px;
+	left: 20px;
+	width: 280px;
+}
+
+.button#remote {
+	top: 160px;
+	left: 20px;
+	width: 100px;
+	background-color: #080;
+}
+
+.button#smart {
+	top: 160px;
+	left: 200px;
+	width: 100px;
+	background-color: #080;
+}
+
+#log {
+	margin-top: 200px;
+	display: block;
+	font-family: monospace;
+	font-size: 13px;
+	color: #FFF;
+	padding: 20px;
+}
+
+#log > .info {
+	color: #AAA;
+}
+
+#log > .error {
+	color: #F00;
+}
+
+#log > .success {
+	color: #0F0;
+}

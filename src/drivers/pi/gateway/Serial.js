@@ -16,9 +16,18 @@ module.exports = class Serial {
         // Open file
         this.file = filePath
         this.fileOut = fs.createWriteStream(filePath)
+		this.fileIn = fs.createReadStream(filePath)
         var lineReader = require('readline').createInterface({
-            input: fs.createReadStream(filePath)
+            input: this.fileIn
         });
+
+		// Catch errors
+		this.fileOut.on('error', function(err) {
+		  console.log("ERROR: " + err);
+		});
+		this.fileIn.on('error', function(err) {
+		  console.log("ERROR: " + err);
+		});
 
         // Add line listener
         lineReader.on('line', line => {
