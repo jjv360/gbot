@@ -4,7 +4,7 @@
 const Controller = require("./Controller")
 const Device = require("../Device")
 
-const WHEEL_POWER = 0.9
+const WHEEL_POWER = 1
 
 module.exports = class RemoteControl extends Controller {
 
@@ -16,7 +16,6 @@ module.exports = class RemoteControl extends Controller {
 	do(action) {
 
 		// Check action name
-		console.log("Remote Control received: " + action)
 		if (action == "stop") {
 
 			for (var device of this.bot.devices)
@@ -25,9 +24,12 @@ module.exports = class RemoteControl extends Controller {
 
 		} else if (action == "forward") {
 
-			for (var device of this.bot.devices)
-				if (device.type == Device.Type.Wheel)
+			for (var device of this.bot.devices) {
+				if (device.type == Device.Type.Wheel) {
 					device.setSpeed(WHEEL_POWER)
+					console.log("Setting device " + device.ID + " to speed " + WHEEL_POWER)
+				}
+			}
 
 		} else if (action == "backward") {
 
