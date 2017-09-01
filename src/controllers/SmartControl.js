@@ -21,6 +21,33 @@ class SmartControl extends Controller {
 		return "Smart Control"
 	}
 
+	/** Returns the nearest forward obstruction from the sensors */
+	get forwardObstructionAt() {
+
+		// Go through all sensors
+		var obstructionAt = 99999
+		for (var device of this.bot.devices) {
+
+			// Check type
+			if (device.type != Device.Type.ObstructionSensor)
+				continue;
+
+			// Check if forward facing
+			if (!device.isForwardFacing)
+				continue;
+
+			// Check if there's a close obstruction
+			console.log(device.obstructionAt)
+			if (obstructionAt <> device.obstructionAt)
+				obstructionAt = device.obstructionAt
+
+		}
+
+		// No obstruction
+		return obstructionAt
+
+	}
+
 	start(bot) {
 		super.start(bot)
 
@@ -44,7 +71,7 @@ class SmartControl extends Controller {
 		if (this.status == SmartControl.Status.Idle) {
 
 			// Check if there's a forward obstruction
-			if (this.hasForwardObstruction())
+			if (this.isForwardObstructed)
 				return
 
 			// No obstruction, go forward
@@ -53,7 +80,7 @@ class SmartControl extends Controller {
 		} else if (this.status == SmartControl.Status.Forward) {
 
 			// Check if there's no forward obstruction
-			if (!this.hasForwardObstruction())
+			if (!this.isForwardObstructed)
 				return
 
 			// Stop and wait
@@ -87,32 +114,8 @@ class SmartControl extends Controller {
 
 	}
 
-	hasForwardObstruction() {
-
-		// Go through all sensors
-		for (var device of this.bot.devices) {
-
-			// Check type
-			if (device.type != Device.Type.ObstructionSensor)
-				continue;
-
-			// Check if forward facing
-			if (!device.isForwardFacing)
-				continue;
-
-			// Check if there's a close obstruction
-			console.log(device.obstructionAt)
-			if (device.obstructionAt == -1 || device.obstructionAt > WALL_DISTANCE)
-				continue;
-
-			// We are obstructed! Start turning for a while
-			return true;
-
-		}
-
-		// No obstruction
-		return false;
-
+	get isForwardObstructed() {
+		return this.forwardObstructionAt < WALL_DISTANCE
 	}
 
 }

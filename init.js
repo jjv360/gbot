@@ -75,6 +75,18 @@ app.ws('/', (ws, res) => {
 	// Say hello
 	ws.send("Hi")
 
+	// Notify info every so often
+	setInterval(function() {
+
+		// Stop if not in smart mode
+		if (!(bot.controller instanceof SmartControl))
+			return
+
+		// Send info
+		ws.send("Nearest obstruction: " + bot.controller.forwardObstructionAt)
+
+	}, 1000)
+
 	// Listen for incoming messages
 	ws.on("message", msg => {
 
