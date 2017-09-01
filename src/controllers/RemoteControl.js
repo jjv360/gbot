@@ -16,6 +16,7 @@ module.exports = class RemoteControl extends Controller {
 	do(action) {
 
 		// Check action name
+		console.log("Remote Control received: " + action)
 		if (action == "stop") {
 
 			for (var device of this.bot.devices)

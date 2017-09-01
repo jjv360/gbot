@@ -19,7 +19,7 @@ void USB::setup() {
   inputBuffer.reserve(256);
 
   // Start serial communication
-  Serial.begin(57600);
+  Serial.begin(9600);
   isInitialized = 1;
   USB::log("USB", "Initialized");
 
