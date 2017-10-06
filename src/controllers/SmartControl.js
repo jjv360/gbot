@@ -5,7 +5,7 @@ const Controller = require("./Controller")
 const Device = require("../Device")
 
 const WHEEL_POWER = 1
-const WALL_DISTANCE = 0.5
+const WALL_DISTANCE = 0.15
 
 class SmartControl extends Controller {
 
@@ -92,8 +92,18 @@ class SmartControl extends Controller {
 			if (!this.isForwardObstructed)
 				return
 
-			// Stop and wait
-			this.setStop()
+			// Turn to the right
+            this.setTurn()
+
+		} else if (this.status == SmartControl.Status.Turning) {
+
+            // We are TURNING
+			// Check if there's a forward obstruction
+			if (this.isForwardObstructed)
+				return
+
+			// No more obstruction, go forward again
+            this.setForward()
 
 		}
 
@@ -120,6 +130,19 @@ class SmartControl extends Controller {
 		for (var device of this.bot.devices)
 			if (device.type == Device.Type.Wheel)
 				device.setSpeed(0)
+
+	}
+
+    /** Turn to the right */
+	setTurn() {
+
+		// Set state
+		this.status = SmartControl.Status.Turning
+
+		// Set motors
+		for (var device of this.bot.devices)
+			if (device.type == Device.Type.Wheel)
+				device.setSpeed(device.x < 0 ? -WHEEL_POWER : WHEEL_POWER)
 
 	}
 
