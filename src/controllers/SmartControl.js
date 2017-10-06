@@ -5,7 +5,7 @@ const Controller = require("./Controller")
 const Device = require("../Device")
 
 const WHEEL_POWER = 1
-const WALL_DISTANCE = 0.15
+const WALL_DISTANCE = 0.25
 
 class SmartControl extends Controller {
 
