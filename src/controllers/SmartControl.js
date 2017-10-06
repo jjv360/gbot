@@ -36,9 +36,13 @@ class SmartControl extends Controller {
 			if (!device.isForwardFacing)
 				continue;
 
+            // Ignore if problem with sensor
+            if (device.obstructionAt <= 0)
+                continue;
+
 			// Check if there's a close obstruction
 			console.log(device.obstructionAt)
-			if (obstructionAt <> device.obstructionAt)
+			if (obstructionAt > device.obstructionAt)
 				obstructionAt = device.obstructionAt
 
 		}
@@ -67,9 +71,13 @@ class SmartControl extends Controller {
 	/** Logic loop */
 	loop() {
 
+        // Log status
+        this.log("Status: " + this.status + ", obstruction: " + this.forwardObstructionAt)
+
 		// Check current state
 		if (this.status == SmartControl.Status.Idle) {
 
+            // We are IDLE
 			// Check if there's a forward obstruction
 			if (this.isForwardObstructed)
 				return
@@ -79,6 +87,7 @@ class SmartControl extends Controller {
 
 		} else if (this.status == SmartControl.Status.Forward) {
 
+            // We are going FORWARD
 			// Check if there's no forward obstruction
 			if (!this.isForwardObstructed)
 				return

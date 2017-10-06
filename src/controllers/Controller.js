@@ -41,4 +41,16 @@ module.exports = class Controller {
 
 	}
 
+    /** Log info */
+    log(txt) {
+
+        // Send to log handler, if any
+        if (this.onLog)
+            this.onLog(txt)
+
+        // Log to console as well
+        console.log(txt)
+
+    }
+
 }

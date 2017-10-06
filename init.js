@@ -98,6 +98,7 @@ app.ws('/', (ws, res) => {
 			console.log("Switching to Smart mode")
 			ws.send("Switching to Smart mode")
 			bot.controller = new SmartControl()
+            bot.onLog = msg => ws.send(msg)
 
 		} else if (msg == "remote") {
 
