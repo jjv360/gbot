@@ -69,19 +69,22 @@ void loop() {
 
             // Go forward
             pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
-            pwm.setPin(1, 0);
+            pwm.setPin(1, 4096);
+            pwm.setPin(2, 0);
 
         } else if (speed < 0) {
 
             // Go backward
-            pwm.setPin(0, 0);
-            pwm.setPin(1, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+            pwm.setPin(0, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+            pwm.setPin(1, 0);
+            pwm.setPin(2, 4096);
 
         } else if (speed == 0) {
 
             // Stop
             pwm.setPin(0, 0);
             pwm.setPin(1, 0);
+            pwm.setPin(2, 0);
 
         }
 
@@ -92,20 +95,23 @@ void loop() {
         if (speed > 0) {
 
             // Go forward
-            pwm.setPin(2, (unsigned int) (max(0, min(1, speed)) * 4095));
-            pwm.setPin(3, 0);
+            pwm.setPin(3, (unsigned int) (max(-1, min(1, speed)) * 4095));
+            pwm.setPin(4, 4096);
+            pwm.setPin(5, 0);
 
         } else if (speed < 0) {
 
             // Go backward
-            pwm.setPin(2, 0);
-            pwm.setPin(3, (unsigned int) (max(0, min(1, -speed)) * 4095));
+            pwm.setPin(3, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+            pwm.setPin(4, 0);
+            pwm.setPin(5, 4096);
 
         } else if (speed == 0) {
 
             // Stop
-            pwm.setPin(2, 0);
             pwm.setPin(3, 0);
+            pwm.setPin(4, 0);
+            pwm.setPin(5, 0);
 
         }
 
