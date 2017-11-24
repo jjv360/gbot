@@ -134,7 +134,7 @@ void loop() {
     }
 
     // Check if obstructed
-    if (!lineSensor1.isOn() || !lineSensor2.isOn() || !lineSensor3.isOn()) {
+    if (lineSensor1.isOn() || lineSensor2.isOn() || lineSensor3.isOn()) {
 
         // Check if moving
         if (isMoving) {
