@@ -4,8 +4,8 @@
 const Controller = require("./Controller")
 const Device = require("../Device")
 
-const WHEEL_POWER = 0.65
-const WALL_DISTANCE = 0.25
+const WHEEL_POWER = 0.7
+const WALL_DISTANCE = 0.4
 
 class SmartControl extends Controller {
 
@@ -142,7 +142,7 @@ class SmartControl extends Controller {
 		// Set motors
 		for (var device of this.bot.devices)
 			if (device.type == Device.Type.Wheel)
-				device.setSpeed(device.x < 0 ? -WHEEL_POWER : WHEEL_POWER)
+				device.setSpeed(device.x < 0 ? -1.0 : 1.0)
 
 	}
 
