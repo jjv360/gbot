@@ -140,9 +140,9 @@ void loop() {
         if (isMoving) {
 
             // We're going off an edge! Move back a bit
-            setMotors(-0.5f, -0.5f);
+            setMotors(-1f, -1f);
             delay(100);
-            setMotors(-0.5f, 0.5f);
+            setMotors(-1f, 1f);
             delay(500);
             setMotors(0, 0);
             isMoving = false;
