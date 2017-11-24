@@ -1,21 +1,28 @@
 #include "USB.h"
 #include "UltrasonicSensor.h"
+#include "LineFollowSensor.h"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Adafruit_PWMServoDriver.h>
 
 // Sensors
-UltrasonicSensor sensor1(1, 3, 2);
+// UltrasonicSensor sensor1(1, 3, 2);
 UltrasonicSensor sensor2(2, 4, 2);
-UltrasonicSensor sensor3(3, 5, 2);
-UltrasonicSensor sensor4(4, 6, 2);
-UltrasonicSensor sensor5(5, 7, 2);
+UltrasonicSensor sensor3(3, 5, 3);
+// UltrasonicSensor sensor4(4, 6, 2);
+// UltrasonicSensor sensor5(5, 7, 2);
+LineFollowSensor lineSensor1(0, 8);
+LineFollowSensor lineSensor2(0, 9);
+LineFollowSensor lineSensor3(0, 10);
 
 // LCD
 LiquidCrystal_I2C lcd(0x38, 16, 2);
 
 // PWM (motors/servos)
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
+// State
+bool isMoving = false;
 
 void setup() {
 
@@ -44,11 +51,14 @@ bool startsWith(const char *pre, const char *str) {
 void loop() {
 
     // Run loop for components
-    sensor1.loop();
+    // sensor1.loop();
     sensor2.loop();
     sensor3.loop();
-    sensor4.loop();
-    sensor5.loop();
+    // sensor4.loop();
+    // sensor5.loop();
+    lineSensor1.loop();
+    lineSensor2.loop();
+    lineSensor3.loop();
 
     // Process incoming commands
     char inputBuffer[256];
@@ -71,6 +81,7 @@ void loop() {
             pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
             pwm.setPin(1, 4096);
             pwm.setPin(2, 0);
+            isMoving = true;
 
         } else if (speed < 0) {
 
@@ -78,6 +89,7 @@ void loop() {
             pwm.setPin(0, (unsigned int) (max(-1, min(1, -speed)) * 4095));
             pwm.setPin(1, 0);
             pwm.setPin(2, 4096);
+            isMoving = true;
 
         } else if (speed == 0) {
 
@@ -85,6 +97,7 @@ void loop() {
             pwm.setPin(0, 0);
             pwm.setPin(1, 0);
             pwm.setPin(2, 0);
+            isMoving = false;
 
         }
 
@@ -98,6 +111,7 @@ void loop() {
             pwm.setPin(3, (unsigned int) (max(-1, min(1, speed)) * 4095));
             pwm.setPin(5, 4096);
             pwm.setPin(4, 0);
+            isMoving = true;
 
         } else if (speed < 0) {
 
@@ -105,6 +119,7 @@ void loop() {
             pwm.setPin(3, (unsigned int) (max(-1, min(1, -speed)) * 4095));
             pwm.setPin(5, 0);
             pwm.setPin(4, 4096);
+            isMoving = true;
 
         } else if (speed == 0) {
 
@@ -112,8 +127,87 @@ void loop() {
             pwm.setPin(3, 0);
             pwm.setPin(5, 0);
             pwm.setPin(4, 0);
+            isMoving = false;
 
         }
+
+    }
+
+    // Check if obstructed
+    if (!lineSensor1.isOn() || !lineSensor2.isOn() || !lineSensor3.isOn()) {
+
+        // Check if moving
+        if (isMoving) {
+
+            // We're going off an edge! Move back a bit
+            setMotors(-0.5f, -0.5f);
+            delay(100);
+            setMotors(-0.5f, 0.5f);
+            delay(500);
+            setMotors(0, 0);
+            isMoving = false;
+
+        }
+
+    }
+
+}
+
+void setMotors(float left, float right) {
+
+    // Apply PWM speed
+    float speed = left;
+    if (speed > 0) {
+
+        // Go forward
+        pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
+        pwm.setPin(1, 4096);
+        pwm.setPin(2, 0);
+        isMoving = true;
+
+    } else if (speed < 0) {
+
+        // Go backward
+        pwm.setPin(0, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+        pwm.setPin(1, 0);
+        pwm.setPin(2, 4096);
+        isMoving = true;
+
+    } else if (speed == 0) {
+
+        // Stop
+        pwm.setPin(0, 0);
+        pwm.setPin(1, 0);
+        pwm.setPin(2, 0);
+        isMoving = false;
+
+    }
+
+    // Apply PWM speed
+    speed = right;
+    if (speed > 0) {
+
+        // Go forward
+        pwm.setPin(3, (unsigned int) (max(-1, min(1, speed)) * 4095));
+        pwm.setPin(5, 4096);
+        pwm.setPin(4, 0);
+        isMoving = true;
+
+    } else if (speed < 0) {
+
+        // Go backward
+        pwm.setPin(3, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+        pwm.setPin(5, 0);
+        pwm.setPin(4, 4096);
+        isMoving = true;
+
+    } else if (speed == 0) {
+
+        // Stop
+        pwm.setPin(3, 0);
+        pwm.setPin(5, 0);
+        pwm.setPin(4, 0);
+        isMoving = false;
 
     }
 
