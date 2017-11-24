@@ -8,7 +8,7 @@
 // Sensors
 // UltrasonicSensor sensor1(1, 3, 2);
 UltrasonicSensor sensor2(2, 4, 2);
-UltrasonicSensor sensor3(3, 5, 3);
+// UltrasonicSensor sensor3(3, 5, 3);
 // UltrasonicSensor sensor4(4, 6, 2);
 // UltrasonicSensor sensor5(5, 7, 2);
 LineFollowSensor lineSensor1(0, 8);
@@ -53,7 +53,7 @@ void loop() {
     // Run loop for components
     // sensor1.loop();
     sensor2.loop();
-    sensor3.loop();
+    // sensor3.loop();
     // sensor4.loop();
     // sensor5.loop();
     lineSensor1.loop();
