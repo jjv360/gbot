@@ -62,72 +62,73 @@ void loop() {
 
     // Process incoming commands
     char inputBuffer[256];
-    if (!USB::readLine(inputBuffer, 256))
-        return;
+    if (USB::readLine(inputBuffer, 256)) {
 
-    // Process input command
-    if (startsWith("LCD ", inputBuffer)) {
+        // Process input command
+        if (startsWith("LCD ", inputBuffer)) {
 
-        // Write to screen
-        writeLCD(inputBuffer + 4);
+            // Write to screen
+            writeLCD(inputBuffer + 4);
 
-    } else if (startsWith("WHEEL1 ", inputBuffer)) {
+        } else if (startsWith("WHEEL1 ", inputBuffer)) {
 
-        // Apply PWM speed
-        float speed = atof(inputBuffer + 7);
-        if (speed > 0) {
+            // Apply PWM speed
+            float speed = atof(inputBuffer + 7);
+            if (speed > 0) {
 
-            // Go forward
-            pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
-            pwm.setPin(1, 4096);
-            pwm.setPin(2, 0);
-            isMoving = true;
+                // Go forward
+                pwm.setPin(0, (unsigned int) (max(-1, min(1, speed)) * 4095));
+                pwm.setPin(1, 4096);
+                pwm.setPin(2, 0);
+                isMoving = true;
 
-        } else if (speed < 0) {
+            } else if (speed < 0) {
 
-            // Go backward
-            pwm.setPin(0, (unsigned int) (max(-1, min(1, -speed)) * 4095));
-            pwm.setPin(1, 0);
-            pwm.setPin(2, 4096);
-            isMoving = true;
+                // Go backward
+                pwm.setPin(0, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+                pwm.setPin(1, 0);
+                pwm.setPin(2, 4096);
+                isMoving = true;
 
-        } else if (speed == 0) {
+            } else if (speed == 0) {
 
-            // Stop
-            pwm.setPin(0, 0);
-            pwm.setPin(1, 0);
-            pwm.setPin(2, 0);
-            isMoving = false;
+                // Stop
+                pwm.setPin(0, 0);
+                pwm.setPin(1, 0);
+                pwm.setPin(2, 0);
+                isMoving = false;
 
-        }
+            }
 
-    } else if (startsWith("WHEEL2 ", inputBuffer)) {
+        } else if (startsWith("WHEEL2 ", inputBuffer)) {
 
-        // Apply PWM speed
-        float speed = atof(inputBuffer + 7);
-        if (speed > 0) {
+            // Apply PWM speed
+            float speed = atof(inputBuffer + 7);
+            if (speed > 0) {
 
-            // Go forward
-            pwm.setPin(3, (unsigned int) (max(-1, min(1, speed)) * 4095));
-            pwm.setPin(5, 4096);
-            pwm.setPin(4, 0);
-            isMoving = true;
+                // Go forward
+                pwm.setPin(3, (unsigned int) (max(-1, min(1, speed)) * 4095));
+                pwm.setPin(5, 4096);
+                pwm.setPin(4, 0);
+                isMoving = true;
 
-        } else if (speed < 0) {
+            } else if (speed < 0) {
 
-            // Go backward
-            pwm.setPin(3, (unsigned int) (max(-1, min(1, -speed)) * 4095));
-            pwm.setPin(5, 0);
-            pwm.setPin(4, 4096);
-            isMoving = true;
+                // Go backward
+                pwm.setPin(3, (unsigned int) (max(-1, min(1, -speed)) * 4095));
+                pwm.setPin(5, 0);
+                pwm.setPin(4, 4096);
+                isMoving = true;
 
-        } else if (speed == 0) {
+            } else if (speed == 0) {
 
-            // Stop
-            pwm.setPin(3, 0);
-            pwm.setPin(5, 0);
-            pwm.setPin(4, 0);
-            isMoving = false;
+                // Stop
+                pwm.setPin(3, 0);
+                pwm.setPin(5, 0);
+                pwm.setPin(4, 0);
+                isMoving = false;
+
+            }
 
         }
 
