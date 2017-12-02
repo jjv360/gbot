@@ -12,7 +12,7 @@ private:
 
     int _pin;
     int _id;
-    unsigned long long _lastPing;
+    bool _isOn;
 
 public:
 

@@ -24,6 +24,18 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 // State
 bool isMoving = false;
 
+void emergencyStop() {
+
+    // Check if moving
+    if (!isMoving)
+        return;
+
+    // Stop motors
+    setMotors(0.0f, 0.0f);
+    isMoving = false;
+
+}
+
 void setup() {
 
   // Setup USB
@@ -38,6 +50,11 @@ void setup() {
   // Setup PWM
   pwm.begin();
   pwm.setPWMFreq(1600);
+
+  // Setup emergency stop interrupts
+  attachInterrupt(digitalPinToInterrupt(8), emergencyStop, RISING);
+  attachInterrupt(digitalPinToInterrupt(9), emergencyStop, RISING);
+  attachInterrupt(digitalPinToInterrupt(10), emergencyStop, RISING);
 
 }
 
