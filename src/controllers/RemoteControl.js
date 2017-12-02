@@ -4,8 +4,8 @@
 const Controller = require("./Controller")
 const Device = require("../Device")
 
-const WHEEL_POWER = 0.7
-const WHEEL_POWER_TURN = 0.9
+const WHEEL_POWER = 0.65
+const WHEEL_POWER_TURN = 0.85
 
 module.exports = class RemoteControl extends Controller {
 
